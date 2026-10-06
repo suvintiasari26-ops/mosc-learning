@@ -180,14 +180,28 @@ body {
   border-radius: 10px;
   display: flex;
   align-items: center;
+  position: relative;
   padding: 0 12px;
   color: var(--text-muted);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transform-origin: center;
+  transition: width 0.3s ease, border-color 0.2s, box-shadow 0.2s;
 }
 
 .searchbox:focus-within {
+  position: fixed;
+  top: 14px;
+  left: 12px;
+  width: calc(100vw - 24px);
+  margin-left: 0;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(214,66,131,0.15);
+  z-index: 36;
+  animation: search-expand 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes search-expand {
+  from { opacity: 0.88; transform: scaleX(0.45); }
+  to { opacity: 1; transform: scaleX(1); }
 }
 
 .searchbox input {
@@ -199,6 +213,87 @@ body {
   font: inherit;
   font-size: 14px;
   color: var(--text);
+}
+
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: min(70vh, 420px);
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.search-suggestions[hidden] {
+  display: none;
+}
+
+.search-suggestion {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.search-suggestion:hover,
+.search-suggestion.active {
+  background: var(--soft);
+}
+
+.search-suggestion-id {
+  flex: 0 0 auto;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.search-suggestion-details {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.search-suggestion-title {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+}
+
+.search-suggestion-chapter {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.search-empty {
+  padding: 12px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .searchbox,
+  .searchbox:focus-within {
+    animation: none;
+    transition: none;
+  }
 }
 
 .top-actions {

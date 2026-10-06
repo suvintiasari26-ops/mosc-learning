@@ -886,10 +886,116 @@
     }).observe(document.body, { childList: true, subtree: true });
   }
 
+  function initSearchAutocomplete() {
+    const input = document.getElementById('searchInput');
+    const list = document.getElementById('searchSuggestions');
+    if (!input || !list) return;
+
+    let results = [];
+    let activeIndex = -1;
+
+    function closeSuggestions() {
+      list.hidden = true;
+      list.replaceChildren();
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+      activeIndex = -1;
+    }
+
+    function setActive(index) {
+      const options = list.querySelectorAll('.search-suggestion');
+      if (!options.length) return;
+      activeIndex = (index + options.length) % options.length;
+      options.forEach((option, optionIndex) => {
+        const isActive = optionIndex === activeIndex;
+        option.classList.toggle('active', isActive);
+        option.setAttribute('aria-selected', String(isActive));
+      });
+      input.setAttribute('aria-activedescendant', options[activeIndex].id);
+      options[activeIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    function updateSuggestions() {
+      const query = input.value.trim().toLocaleLowerCase();
+      list.replaceChildren();
+      activeIndex = -1;
+      input.removeAttribute('aria-activedescendant');
+      if (!query) {
+        closeSuggestions();
+        return;
+      }
+
+      results = all.filter(item => `${item.id} ${item.title} ${item.chapter.title}`.toLocaleLowerCase().includes(query)).slice(0, 8);
+      if (!results.length) {
+        const empty = document.createElement('div');
+        empty.className = 'search-empty';
+        empty.setAttribute('role', 'status');
+        empty.textContent = 'Tidak ada materi yang cocok.';
+        list.append(empty);
+      } else {
+        results.forEach((item, index) => {
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.id = `search-option-${index}`;
+          option.className = 'search-suggestion';
+          option.setAttribute('role', 'option');
+          option.setAttribute('aria-selected', 'false');
+
+          const id = document.createElement('span');
+          id.className = 'search-suggestion-id';
+          id.textContent = item.id;
+          const details = document.createElement('span');
+          details.className = 'search-suggestion-details';
+          const title = document.createElement('span');
+          title.className = 'search-suggestion-title';
+          title.textContent = item.title;
+          const chapter = document.createElement('span');
+          chapter.className = 'search-suggestion-chapter';
+          chapter.textContent = `BAB ${item.chapter.number}: ${item.chapter.title}`;
+          details.append(title, chapter);
+          option.append(id, details);
+          list.append(option);
+        });
+      }
+
+      list.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    input.addEventListener('input', updateSuggestions);
+    input.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' && !list.hidden) {
+        event.preventDefault();
+        setActive(activeIndex + 1);
+      } else if (event.key === 'ArrowUp' && !list.hidden) {
+        event.preventDefault();
+        setActive(activeIndex < 0 ? list.querySelectorAll('.search-suggestion').length - 1 : activeIndex - 1);
+      } else if (event.key === 'Enter' && activeIndex >= 0) {
+        event.preventDefault();
+        window.location.href = `materi.html?id=${encodeURIComponent(results[activeIndex].id)}`;
+      } else if (event.key === 'Escape') {
+        closeSuggestions();
+      }
+    });
+
+    list.addEventListener('mousedown', event => event.preventDefault());
+    list.addEventListener('click', event => {
+      const option = event.target.closest('.search-suggestion');
+      if (!option) return;
+      const index = Number(option.id.replace('search-option-', ''));
+      if (results[index]) window.location.href = `materi.html?id=${encodeURIComponent(results[index].id)}`;
+    });
+    input.addEventListener('blur', () => window.setTimeout(closeSuggestions, 120));
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.searchbox')) closeSuggestions();
+    });
+  }
+
   // Initial Execution
   applyTheme();
   renderSidebar();
   updateGlobalProgress();
   renderArticle(currentItem);
+  initSearchAutocomplete();
   initEntranceAnimations();
 })();

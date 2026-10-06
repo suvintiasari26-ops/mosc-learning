@@ -88,7 +88,8 @@
     </a>
     <div class="searchbox">
       <svg class="icon"><use href="#search"></use></svg>
-      <input id="searchInput" placeholder="Cari bab atau subbab materi...">
+      <input id="searchInput" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="searchSuggestions" placeholder="Cari bab atau subbab materi...">
+      <div class="search-suggestions" id="searchSuggestions" role="listbox" hidden></div>
     </div>
     <div class="top-actions">
       <a class="btn-tool" href="materi.html?id=2.12" title="Kalkulator Operasi">
