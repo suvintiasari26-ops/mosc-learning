@@ -773,27 +773,30 @@
     }
   }
 
-  document.getElementById('themeBtn')?.addEventListener('click', () => {
-    const isDark = document.body.classList.contains('dark');
-    localStorage.setItem('mosc-theme', isDark ? 'light' : 'dark');
-    applyTheme();
-  });
+  if (document.getElementById('article')) {
+    document.getElementById('themeBtn')?.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      localStorage.setItem('mosc-theme', isDark ? 'light' : 'dark');
+      applyTheme();
+    });
 
-  // Mobile Menu Toggle
-  document.getElementById('menuBtn')?.addEventListener('click', () => {
-    document.getElementById('sidebar')?.classList.toggle('open');
-  });
+    // Mobile Menu Toggle
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      document.getElementById('sidebar')?.classList.toggle('open');
+    });
 
-  // Close sidebar on mobile when clicked outside
-  document.addEventListener('click', e => {
-    const sidebar = document.getElementById('sidebar');
-    const menuBtn = document.getElementById('menuBtn');
-    if (sidebar && sidebar.classList.contains('open')) {
-      if (!sidebar.contains(e.target) && !menuBtn?.contains(e.target)) {
-        sidebar.classList.remove('open');
+    // Close sidebar on mobile when clicked outside
+    document.addEventListener('click', e => {
+      const sidebar = document.getElementById('sidebar');
+      const menuBtn = document.getElementById('menuBtn');
+      if (sidebar && sidebar.classList.contains('open')) {
+        if (!sidebar.contains(e.target) && !menuBtn?.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
       }
     }
-  });
+    );
+  }
 
   // Calculator Modal Controller
   const modal = document.getElementById('calculatorModal');
@@ -838,9 +841,55 @@
     initLineBalancingCalculator();
   }
 
+  function initEntranceAnimations() {
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const selectors = [
+      '.hero', '.resume-card', '.stat', '.section > .eyebrow', '.section > h2',
+      '.chapter-card', '.article > .crumb-bar', '.article > h1',
+      '.article-body > p', '.article-body > h2', '.article-body > h3',
+      '.article-body > ul', '.article-body > ol', '.article-body > .callout',
+      '.article-body > .formula-box', '.article-body > .table-responsive',
+      '.quiz-header', '.quiz-card', '.quiz-wrapper > .quiz-reset-btn',
+      '.calc-card', '.article-actions', '.article-nav', '.keyboard-hint'
+    ].join(',');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+
+    const observed = new WeakSet();
+    const observeElements = root => {
+      if (root instanceof Element && root.matches(selectors) && !observed.has(root)) {
+        observed.add(root);
+        root.classList.add('scroll-reveal');
+        observer.observe(root);
+      }
+
+      root.querySelectorAll?.(selectors).forEach(element => {
+        if (observed.has(element)) return;
+        observed.add(element);
+        element.classList.add('scroll-reveal');
+        observer.observe(element);
+      });
+    };
+
+    observeElements(document);
+    new MutationObserver(records => {
+      records.forEach(record => record.addedNodes.forEach(node => {
+        if (node instanceof Element) observeElements(node);
+      }));
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
   // Initial Execution
   applyTheme();
   renderSidebar();
   updateGlobalProgress();
   renderArticle(currentItem);
+  initEntranceAnimations();
 })();

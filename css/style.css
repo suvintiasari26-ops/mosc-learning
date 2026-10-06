@@ -80,14 +80,14 @@ body {
   animation: flower-drift var(--flower-speed) linear var(--flower-delay) infinite;
 }
 
-.flower-backdrop span:nth-child(1) { --flower-x: 8%; --flower-size: 26px; --flower-speed: 25s; --flower-delay: -8s; }
-.flower-backdrop span:nth-child(2) { --flower-x: 22%; --flower-size: 19px; --flower-speed: 31s; --flower-delay: -19s; }
-.flower-backdrop span:nth-child(3) { --flower-x: 39%; --flower-size: 30px; --flower-speed: 28s; --flower-delay: -4s; }
-.flower-backdrop span:nth-child(4) { --flower-x: 56%; --flower-size: 22px; --flower-speed: 34s; --flower-delay: -24s; }
-.flower-backdrop span:nth-child(5) { --flower-x: 71%; --flower-size: 28px; --flower-speed: 26s; --flower-delay: -13s; }
-.flower-backdrop span:nth-child(6) { --flower-x: 84%; --flower-size: 20px; --flower-speed: 32s; --flower-delay: -2s; }
-.flower-backdrop span:nth-child(7) { --flower-x: 94%; --flower-size: 24px; --flower-speed: 29s; --flower-delay: -17s; }
-.flower-backdrop span:nth-child(8) { --flower-x: 48%; --flower-size: 17px; --flower-speed: 36s; --flower-delay: -29s; }
+.flower-backdrop span:nth-child(1) { --flower-x: 8%; --flower-size: 38px; --flower-speed: 25s; --flower-delay: -8s; }
+.flower-backdrop span:nth-child(2) { --flower-x: 22%; --flower-size: 30px; --flower-speed: 31s; --flower-delay: -19s; }
+.flower-backdrop span:nth-child(3) { --flower-x: 39%; --flower-size: 44px; --flower-speed: 28s; --flower-delay: -4s; }
+.flower-backdrop span:nth-child(4) { --flower-x: 56%; --flower-size: 34px; --flower-speed: 34s; --flower-delay: -24s; }
+.flower-backdrop span:nth-child(5) { --flower-x: 71%; --flower-size: 40px; --flower-speed: 26s; --flower-delay: -13s; }
+.flower-backdrop span:nth-child(6) { --flower-x: 84%; --flower-size: 31px; --flower-speed: 32s; --flower-delay: -2s; }
+.flower-backdrop span:nth-child(7) { --flower-x: 94%; --flower-size: 36px; --flower-speed: 29s; --flower-delay: -17s; }
+.flower-backdrop span:nth-child(8) { --flower-x: 48%; --flower-size: 27px; --flower-speed: 36s; --flower-delay: -29s; }
 
 @keyframes flower-drift {
   0% { transform: translate3d(0, 0, 0) rotate(0deg); }
@@ -1484,6 +1484,26 @@ body.dark .calc-status-tag.warning {
 }
 
 /* Animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
