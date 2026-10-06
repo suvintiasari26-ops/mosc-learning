@@ -1598,7 +1598,15 @@ body.dark .calc-status-tag.warning {
     flex-direction: column;
   }
   .article-nav a {
-    max-width: 100%;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    padding: 12px 14px;
+    margin: 4px;
+    box-sizing: border-box;
+  }
+  .article-nav a span {
+    min-width: 0;
   }
 }
   
