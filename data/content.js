@@ -23,7 +23,9 @@ window.MOSC_CONTENT={
           "chapter": "1",
           "content": [
             "Manajemen operasi (operations management) merupakan aktivitas perencanaan, pengorganisasian, pengelolaan, dan pengendalian proses yang digunakan organisasi untuk mengubah input menjadi output berupa barang atau jasa. Secara sederhana, sistem operasi dapat digambarkan sebagai berikut:",
+            "[IMAGE:assets/materi/1.2/1.2-before.jpg]",
             "Contoh sederhana pada perusahaan makanan:",
+            "[IMAGE:assets/materi/1.2/1.2-after.jpg]",
             "Namun, manajemen operasi tidak hanya bertujuan menghasilkan output. Organisasi harus menghasilkan output dengan biaya yang efisien, kualitas yang sesuai, waktu yang tepat, fleksibilitas yang memadai, dan nilai yang diharapkan pelanggan."
           ]
         },
@@ -176,6 +178,7 @@ window.MOSC_CONTENT={
             "Manajemen operasi dan supply chain bukan dua konsep yang berdiri sendiri. Manajemen Operasi lebih banyak berfokus pada pengelolaan proses transformasi dalam organisasi.",
             "Sementara itu: Supply Chain Management memperluas pengelolaan tersebut ke jaringan antarorganisasi.",
             "Hubungannya dapat digambarkan sebagai berikut:",
+            "[IMAGE:assets/materi/1.9/1.9-end.jpg]",
             "Dengan demikian, operasi merupakan salah satu bagian penting dari supply chain."
           ]
         },
@@ -189,14 +192,16 @@ window.MOSC_CONTENT={
             "OM berfokus pada pengelolaan proses internal di dalam batas-batas satu organisasi. Tugas utamanya adalah memastikan bagaimana sumber daya (mesin, pekerja, metode, material) diubah menjadi barang atau jasa berkualitas tinggi dengan biaya terendah dan produktivitas tertinggi.",
             "Supply Chain Management (SCM)",
             "SCM memiliki perspektif yang lebih luas melintasi batas-batas organisasi (inter-organizational). SCM mengintegrasikan dan menyelaraskan berbagai perusahaan independen (pemasok, manufaktur, penyedia logistik 3PL, peritel) agar bekerja sama seperti satu orkestra yang harmonis.",
-            "| Dimensi | Operations Management (OM) | Supply Chain Management (SCM) |",
+            "| Aspek | Operations Management | Supply Chain Management |",
             "| --- | --- | --- |",
-            "| Batasan Organisasi | Intra-organisasi (Internal di dalam dinding perusahaan sendiri) | Inter-organisasi (Melintasi banyak perusahaan independen dari hulu ke hilir) |",
-            "| Fokus Utama | Proses transformasi efisien input menjadi output | Koordinasi, kolaborasi, dan integrasi antar mitra jaringan bisnis |",
-            "| Ruang Lingkup Aktivitas | Tata letak pabrik, desain pekerjaan, kapasitas mesin, perawatan fasilitas, kendali mutu internal | Pengadaan strategis, manajemen pemasok, pergudangan, logistik transportasi, distribusi |",
-            "| Orientasi Keputusan | Efisiensi proses, minimalisasi scrap/cacat, penjadwalan shift kerja | Sinkronisasi suplai-permintaan, kepuasan total rantai pasok, mitigasi risiko global |",
-            "| Metrik Evaluasi Kunci | OEE, produktivitas tenaga kerja, cycle time mesin, defect rate (PPM) | Cash-to-Cash cycle, total cost to serve, OTIF (On-Time In-Full), rasio inventory |",
-            "| Hubungan Konseptual | Bertindak sebagai 'mesin/jantung' pada setiap simpul operasional | Bertindak sebagai 'sistem sirkulasi darah' yang menghubungkan seluruh organ bisnis |",
+            "| Fokus | Proses operasi organisasi | Jaringan rantai pasok |",
+            "| Cakupan | Relatif internal | Internal dan eksternal |",
+            "| Fokus utama | Transformasi input menjadi output | Integrasi supply production distribution |",
+            "| Aktor | Unit operasi perusahaan | Supplier, manufacturer, distributor, retailer, customer |",
+            "| Persediaan | Pengendalian inventory | Koordinasi inventory sepanjang rantai |",
+            "| Informasi | Operasi internal | Interorganizational information |",
+            "| Tujuan | Efisiensi dan efektivitas operasi | Optimasi keseluruhan supply chain |",
+            "| Perspektif | Firm-level | Network-level |",
             "[NOTE: Sinergi Keduanya] SCM yang dirancang sangat canggih tidak akan berhasil jika operasi pabrik di dalamnya tidak mampu memproduksi barang dengan kualitas konsisten. Sebaliknya, pabrik beroperasi paling efisien pun akan merugi jika SCM gagal mengirimkan produk tepat waktu ke pasar."
           ]
         },
@@ -216,7 +221,9 @@ window.MOSC_CONTENT={
             "Flexibility Advantage",
             "Perusahaan mampu menyesuaikan produk dan proses dengan perubahan permintaan.",
             "Innovation Advantage",
-            "Perusahaan mampu mengembangkan proses dan produk baru."
+            "Perusahaan mampu mengembangkan proses dan produk baru.",
+            "Resilience Advantage",
+            "Perusahaan mampu mempertahankan operasi dan melakukan pemulihan ketika terjadi gangguan supply chain."
           ]
         },
         {
@@ -231,11 +238,11 @@ window.MOSC_CONTENT={
             "Teknologi memungkinkan proses operasi dan supply chain menjadi lebih terintegrasi.",
             "3. \tChanging Customer Expectations",
             "Pelanggan semakin mengharapkan:",
-            "harga kompetitif",
-            "kualitas tinggi",
-            "pengiriman cepat",
-            "informasi real-time",
-            "personalisasi."
+            "- harga kompetitif",
+            "- kualitas tinggi",
+            "- pengiriman cepat",
+            "- informasi real-time",
+            "- personalisasi."
           ]
         },
         {

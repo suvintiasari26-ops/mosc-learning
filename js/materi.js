@@ -413,7 +413,27 @@
     let tableBuffer = [];
     let inList = false;
     let listType = 'ul';
+    let listItemOpen = false;
+    let nestedListOpen = false;
     let quizList = [];
+
+    function closeCurrentListItemIfNeeded() {
+      if (inList && listItemOpen) {
+        if (nestedListOpen) {
+          htmlOutput += '</ul>';
+          nestedListOpen = false;
+        }
+        htmlOutput += '</li>';
+        listItemOpen = false;
+      }
+    }
+
+    function closeNestedListIfNeeded() {
+      if (nestedListOpen) {
+        htmlOutput += '</ul>';
+        nestedListOpen = false;
+      }
+    }
 
     for (let i = 0; i < content.length; i++) {
       const line = content[i].trim();
@@ -483,6 +503,7 @@
 
       // Check for Widget Productivity
       if (line.includes('[WIDGET:productivity]')) {
+        closeCurrentListItemIfNeeded();
         if (inList) { htmlOutput += `</${listType}>`; inList = false; }
         htmlOutput += getProductivityCalculatorHTML();
         continue;
@@ -490,6 +511,7 @@
 
       // Check for Widget Line Balance
       if (line.includes('[WIDGET:line_balance]')) {
+        closeCurrentListItemIfNeeded();
         if (inList) { htmlOutput += `</${listType}>`; inList = false; }
         htmlOutput += getLineBalancingCalculatorHTML();
         continue;
@@ -497,6 +519,7 @@
 
       // Check for Formula Block
       if (line.startsWith('[FORMULA]') && line.endsWith('[/FORMULA]')) {
+        closeCurrentListItemIfNeeded();
         if (inList) { htmlOutput += `</${listType}>`; inList = false; }
         const formulaText = line.replace('[FORMULA]', '').replace('[/FORMULA]', '').trim();
         htmlOutput += `
@@ -508,8 +531,25 @@
         continue;
       }
 
+      // Check for Embedded Image
+      const imageMatch = line.match(/^\[IMAGE:(.+?)\]$/);
+      if (imageMatch) {
+        closeCurrentListItemIfNeeded();
+        if (inList) { htmlOutput += `</${listType}>`; inList = false; }
+
+        const src = imageMatch[1].trim();
+        const alt = src.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ') || 'Gambar materi';
+        htmlOutput += `
+          <figure class="content-figure">
+            <img src="${src}" alt="${esc(alt)}">
+          </figure>
+        `;
+        continue;
+      }
+
       // Check for Callout Note
       if (line.startsWith('[NOTE:') || line.startsWith('[TIP:') || line.startsWith('[PENTING:') || line.startsWith('[CASE:')) {
+        closeCurrentListItemIfNeeded();
         if (inList) { htmlOutput += `</${listType}>`; inList = false; }
         const match = line.match(/^\[([A-Z]+):\s*([^\]]+)\]\s*(.*)$/);
         if (match) {
@@ -532,6 +572,7 @@
 
       // Check for Subheadings
       if (line.match(/^(\d+\.\d+(\.\d+)?|[A-Z]\.)\s+([A-Za-z].*)$/) && line.length < 90) {
+        closeCurrentListItemIfNeeded();
         if (inList) { htmlOutput += `</${listType}>`; inList = false; }
         const headingId = 'sec-' + i;
         tocHeadings.push({ id: headingId, title: line });
@@ -541,28 +582,54 @@
 
       // Check for Lists (bullet or numbered)
       if (line.startsWith('- ') || line.startsWith('• ')) {
+        if (inList && listType === 'ol' && listItemOpen) {
+          if (!nestedListOpen) {
+            htmlOutput += '<ul class="article-sublist">';
+            nestedListOpen = true;
+          }
+          htmlOutput += `<li>${esc(line.substring(2))}</li>`;
+          continue;
+        }
+
         if (!inList || listType !== 'ul') {
           if (inList) htmlOutput += `</${listType}>`;
           htmlOutput += '<ul class="article-list">';
           inList = true;
           listType = 'ul';
+          listItemOpen = false;
+          nestedListOpen = false;
         }
         htmlOutput += `<li>${esc(line.substring(2))}</li>`;
         continue;
       } else if (line.match(/^\d+\.\s+/)) {
         if (!inList || listType !== 'ol') {
-          if (inList) htmlOutput += `</${listType}>`;
+          if (inList) {
+            closeCurrentListItemIfNeeded();
+            htmlOutput += `</${listType}>`;
+          }
           htmlOutput += '<ol class="article-list">';
           inList = true;
           listType = 'ol';
+          listItemOpen = false;
+          nestedListOpen = false;
+        } else if (listItemOpen) {
+          closeNestedListIfNeeded();
+          htmlOutput += '</li>';
+          listItemOpen = false;
         }
-        htmlOutput += `<li>${esc(line.replace(/^\d+\.\s+/, ''))}</li>`;
+        htmlOutput += `<li>${esc(line.replace(/^\d+\.\s+/, ''))}`;
+        listItemOpen = true;
         continue;
-      } else {
-        if (inList) {
-          htmlOutput += `</${listType}>`;
-          inList = false;
-        }
+      } else if (inList && listType === 'ol' && listItemOpen) {
+        closeNestedListIfNeeded();
+        htmlOutput += `<div class="list-item-copy">${esc(line)}</div>`;
+        continue;
+      } else if (inList) {
+        closeCurrentListItemIfNeeded();
+        htmlOutput += `</${listType}>`;
+        inList = false;
+        listItemOpen = false;
+        nestedListOpen = false;
       }
 
       // Standard Paragraph
@@ -572,7 +639,10 @@
     }
 
     if (inTable) htmlOutput += parseTable(tableBuffer);
-    if (inList) htmlOutput += `</${listType}>`;
+    if (inList) {
+      closeCurrentListItemIfNeeded();
+      htmlOutput += `</${listType}>`;
+    }
 
     // Append Quizzes if any
     if (quizList.length > 0) {
@@ -850,6 +920,7 @@
       '.article-body > p', '.article-body > h2', '.article-body > h3',
       '.article-body > ul', '.article-body > ol', '.article-body > .callout',
       '.article-body > .formula-box', '.article-body > .table-responsive',
+      '.article-body > .content-figure', '.article-body > .content-figure img',
       '.quiz-header', '.quiz-card', '.quiz-wrapper > .quiz-reset-btn',
       '.calc-card', '.article-actions', '.article-nav', '.keyboard-hint'
     ].join(',');

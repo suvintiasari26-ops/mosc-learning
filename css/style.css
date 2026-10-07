@@ -826,6 +826,25 @@ body.dark .article p {
   font-family: "Times New Roman", Times, serif;
 }
 
+/* Figure / Image Content */
+.content-figure {
+  margin: 24px auto;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.content-figure img {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+
 /* Formula Box */
 .formula-box {
   background: var(--surface-2);
