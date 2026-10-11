@@ -260,16 +260,20 @@ window.MOSC_CONTENT={
           "title": "Digital Transformation dalam Operations dan Supply Chain",
           "chapter": "1",
           "content": [
-            "Transformasi digital telah merevolusi cara perusahaan merancang, memantau, dan mengoptimalkan operasi serta rantai pasok mereka. Revolusi Industri 4.0 menghadirkan teknologi kunci yang mengubah sistem reaktif menjadi prediktif dan otonom:",
-            "1. Artificial Intelligence (AI) & Machine Learning: Digunakan untuk peramalan permintaan tingkat tinggi (dynamic forecasting), optimasi rute armada pengiriman, dan penetapan harga dinamis.",
-            "2. Internet of Things (IoT): Sensor pintar yang dipasang pada mesin pabrik dan kontainer kargo memberikan data real-time mengenai suhu, kelembaban, getaran mesin, dan lokasi geografis GPS.",
-            "3. Big Data Analytics: Mengolah miliaran data transaksi penjualan, interaksi media sosial, dan tren cuaca untuk mengidentifikasi pola tersembunyi dan mendeteksi potensi gangguan pasokan lebih dini.",
-            "4. Cloud Computing & Enterprise Systems (ERP/WMS): Menghubungkan seluruh departemen dan mitra rantai pasok ke dalam satu platform data tunggal (single source of truth).",
-            "5. Robotics & Automation: Penggunaan robot industri untuk perakitan presisi serta Autonomous Mobile Robots (AMR) dan Automated Guided Vehicles (AGV) di pergudangan modern.",
-            "6. Blockchain: Buku besar terdistribusi yang menyediakan rekam jejak (traceability) transparan dan tidak dapat dipalsukan untuk memastikan keaslian produk makanan, obat-obatan, dan barang mewah.",
-            "7. Digital Twin: Model virtual replika 3D dari pabrik fisik atau jaringan logistik yang memungkinkan simulasi skenario operasional sebelum dieksekusi secara nyata.",
+            "Transformasi digital telah mengubah cara perusahaan mengelola operasi. Beberapa teknologi utama adalah:",
+            "| Teknologi | Penerapan |",
+            "| --- | --- |",
+            "| AI | Demand forecasting, optimization |",
+            "| Machine Learning | Predictive analytics |",
+            "| IoT | Real-time monitoring |",
+            "| Big Data | Demand and customer analytics |",
+            "| Blockchain | Traceability |",
+            "| Cloud Computing | Supply chain integration |",
+            "| Robotics | Automation |",
+            "| Digital Twin | Simulation and optimization |",
+            "Sebagai contoh, AI dapat digunakan untuk memprediksi permintaan:",
             "[IMAGE:assets/materi/1.13/1.13-digital-supply-chain.jpg]",
-            "[NOTE: Manfaat Digitalisasi] Digitalisasi bukan sekadar membeli perangkat lunak baru, melainkan mengubah model operasi agar memiliki visibilitas total (end-to-end visibility), kecepatan respon adaptif, dan pengambilan keputusan berbasis data nyata."
+            "Dengan demikian, teknologi digital tidak hanya digunakan untuk otomatisasi, tetapi juga untuk meningkatkan kualitas pengambilan keputusan."
           ]
         },
         {
