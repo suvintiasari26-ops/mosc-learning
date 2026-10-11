@@ -241,7 +241,7 @@
           <div class="calc-field">
             <label class="calc-label">Target Permintaan Pelanggan:</label>
             <div class="calc-input-wrap">
-              <input type="number" class="calc-input" id="calcLBDemand" value="140" min="1">
+              <input type="number" class="calc-input" id="calcLBDemand" value="120" min="1">
               <span class="calc-unit">Unit/Hari</span>
             </div>
           </div>
@@ -273,7 +273,7 @@
           <div class="calc-metric-grid">
             <div class="calc-metric-box">
               <div class="calc-metric-label">Takt Time Pelanggan</div>
-              <div class="calc-metric-val" id="resLBTakt">3.00</div>
+              <div class="calc-metric-val" id="resLBTakt">3.50</div>
               <small style="color:var(--text-muted)">Menit per Unit</small>
             </div>
             <div class="calc-metric-box">
@@ -403,6 +403,7 @@
     const next = all[x + 1];
     const done = localStorage.getItem('done-' + item.id) === '1';
     const readingTime = getReadingTime(item.content);
+    const formatInline = text => esc(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
     // Process blocks in content
     const content = item.content;
@@ -587,7 +588,7 @@
             htmlOutput += '<ul class="article-sublist">';
             nestedListOpen = true;
           }
-          htmlOutput += `<li>${esc(line.substring(2))}</li>`;
+          htmlOutput += `<li>${formatInline(line.substring(2))}</li>`;
           continue;
         }
 
@@ -617,12 +618,12 @@
           htmlOutput += '</li>';
           listItemOpen = false;
         }
-        htmlOutput += `<li>${esc(line.replace(/^\d+\.\s+/, ''))}`;
+        htmlOutput += `<li>${formatInline(line.replace(/^\d+\.\s+/, ''))}`;
         listItemOpen = true;
         continue;
-      } else if (inList && listType === 'ol' && listItemOpen) {
+      } else if (inList && listType === 'ol' && listItemOpen && !line.startsWith('**')) {
         closeNestedListIfNeeded();
-        htmlOutput += `<div class="list-item-copy">${esc(line)}</div>`;
+        htmlOutput += `<div class="list-item-copy">${formatInline(line)}</div>`;
         continue;
       } else if (inList) {
         closeCurrentListItemIfNeeded();
@@ -634,7 +635,7 @@
 
       // Standard Paragraph
       if (line) {
-        htmlOutput += `<p>${esc(line)}</p>`;
+        htmlOutput += `<p>${formatInline(line)}</p>`;
       }
     }
 

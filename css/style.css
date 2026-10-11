@@ -62,6 +62,10 @@ body {
   isolation: isolate;
 }
 
+p {
+  font-family: "times new roman", times, serif;
+}
+
 .flower-backdrop {
   position: fixed;
   z-index: -1;
