@@ -67,7 +67,7 @@
 
     stats.innerHTML = `
       <div class="stat">
-        <strong>3</strong>
+        <strong>${C.length}</strong>
         <span>Bab Kurikulum Lengkap</span>
       </div>
       <div class="stat">

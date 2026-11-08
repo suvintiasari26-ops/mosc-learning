@@ -11,7 +11,7 @@ Platform digital interaktif pembelajaran **Manajemen Operasi dan Supply Chain (M
 Buka file `index.html` atau `materi.html` langsung di browser mana pun (Chrome, Edge, Firefox, Safari).
 
 ## Fitur Utama & Interaktif
-1. **Kurikulum Lengkap 3 Bab & 78 Subbab**:
+1. **Kurikulum Lengkap 8 Bab & 275 Subbab**:
    - **BAB 1**: Konsep Dasar Manajemen Operasi & Supply Chain (Tujuan OM, Efektivitas vs Efisiensi, 3 Aliran SCM, OM vs SCM, Transformasi Digital, Sustainability, Resiliensi, dan Studi Kasus Semikonduktor).
    - **BAB 2**: Strategi Operasi & Produktivitas (Keputusan Struktural & Infrastruktural, Prioritas Kompetitif, Order Winners/Qualifiers, Produktivitas Parsial, Modal, Bahan Baku, Multifactor Productivity / MFP, OEE & KPI, AI dalam Operasi).
    - **BAB 3**: Desain Produk, Jasa, & Proses Operasi (Product Life Cycle, QFD, DFM/DFA, Karakteristik Jasa IHIP, Service Blueprinting, 5 Tipe Proses, Matriks Volume-Variety, Pemetaan Proses ASME, Bottleneck & TOC, Takt Time & Line Balancing).
